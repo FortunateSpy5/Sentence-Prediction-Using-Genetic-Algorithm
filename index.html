@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Sentence Predictor</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Sentence Predictor</h1>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="input inner-container">
+                <textarea class="input-area" contenteditable="true" placeholder="Enter sentence here"></textarea>
+            </div>
+            
+            <div class="parameters inner-container">
+                <div class="subitle">Population Size: <span id="pop-value" class="value"></span></div>
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="10" class="slider" id="pop-range">
+                </div>
+                <div class="subitle">Elite Size: <span id="elite-value" class="value"></span>%</div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="50" value="20" class="slider" id="elite-range">
+                </div>
+                <div class="subitle">Mutation Rate: <span id="mutate-value" class="value"></span>%</div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="20" value="5" class="slider" id="mutation-range">
+                </div>
+                <div class="buttons">
+                    <button id="start">Start</button>
+                    <button id="reset">Reset</button>
+                </div>
+            </div>
+            <div class="output inner-container">
+                Output
+            </div>
+        </div>
+    </section>
+
+    <!-- <div class="slidecontainer">
+        <input type="range" min="0" max="200" value="50" class="slider" id="myRange">
+    </div>
+    <div id="demo">Hello</div> -->
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
