@@ -42,14 +42,7 @@ class Population:
         self.sentence = sentence
         self.length = len(sentence)
         self.generate_initial_population()
-        self.calculate_fitness()
-        self.rank = list(range(self.population_size))
-        self.sort_population()
-        print("\nGeneration:", self.generation_count)
-        print(f"Best of generation: {''.join(self.population[self.rank[0]].genes)}\nFitness: {self.fitness[self.rank[0]]}")
         while self.generation_count < self.max_generation:
-            self.generation_count += 1
-            self.generate_new_population()
             self.calculate_fitness()
             self.rank = list(range(self.population_size))
             self.sort_population()
@@ -57,6 +50,8 @@ class Population:
             print(f"Best of generation: {''.join(self.population[self.rank[0]].genes)}\nFitness: {self.fitness[self.rank[0]]}")
             if self.fitness[self.rank[0]] == 1:
                 break
+            self.generation_count += 1
+            self.generate_new_population()
 
     def generate_initial_population(self):
         for i in range(self.population_size):
@@ -84,7 +79,7 @@ class Population:
             index += 1
         self.population = new_population
 
-    def random_crossover(self):
+    def random_crossover_split(self):
         dna_a = choices(self.population, self.fitness, k=1)[0]
         dna_b = choices(self.population, self.fitness, k=1)[0]
         while dna_a == dna_b:
@@ -98,6 +93,27 @@ class Population:
                 index += 1
             else:
                 if index < split:
+                    dna.genes.append(dna_a.genes[index])
+                    index += 1
+                else:
+                    dna.genes.append(dna_b.genes[index])
+                    index += 1
+        dna.length = self.length
+        return dna
+
+    def random_crossover(self):
+        dna_a = choices(self.population, self.fitness, k=1)[0]
+        dna_b = choices(self.population, self.fitness, k=1)[0]
+        while dna_a == dna_b:
+            dna_b = choices(self.population, self.fitness, k=1)[0]
+        index = 0
+        dna = DNA()
+        while index < self.length:
+            if random() < self.mutation_rate:
+                dna.genes.append(choices(dna_a.valid + [" "] * (self.length // 5), k=1)[0])
+                index += 1
+            else:
+                if random() < 0.5:
                     dna.genes.append(dna_a.genes[index])
                     index += 1
                 else:
