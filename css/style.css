@@ -149,7 +149,6 @@ button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-
 .slidecontainer {
     width: 15rem;
     margin-bottom: 1rem;
@@ -197,5 +196,19 @@ Output
 
 .output {
     grid-area: 1 / 2 / span 2 / span 1;
+    padding: 2rem;
+    font-size: 1.5rem;
 }
 
+.output > div {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+.output ul {
+    list-style: none;
+}
+
+.output li {
+    margin-bottom: 0.6rem;
+}

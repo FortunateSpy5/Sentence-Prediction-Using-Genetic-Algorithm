@@ -6,7 +6,7 @@ class DNA:
     def __init__(self):
         self.genes = []
         self.length = None
-        self.valid = list(ascii_letters + digits + "\"\'&:;!., ")
+        self.valid = list(ascii_letters + digits + "\"\'&:;!.,- ")
         self.fitness = None
 
     def set_genes(self, genes, length):
@@ -22,7 +22,7 @@ class DNA:
         for i in range(self.length):
             if self.genes[i] == sentence[i]:
                 count += 1
-        self.fitness = count / self.length
+        self.fitness = (count / self.length) ** 2
 
 
 class Population:
@@ -32,7 +32,7 @@ class Population:
         self.population = []
         self.fitness = []
         self.rank = []
-        self.population_size = 1000
+        self.population_size = 100
         self.elite = 0.2
         self.mutation_rate = 0.05
         self.generation_count = 0
