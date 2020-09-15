@@ -2,6 +2,8 @@ let sliders = document.querySelectorAll(".slider");
 let values = document.querySelectorAll(".value");
 let start = document.querySelector("#start");
 let reset = document.querySelector("#reset");
+let generation = document.querySelector("#generation");
+let ul = document.querySelector("ul");
 
 // Input sliders
 values[0].innerHTML = sliders[0].value * 10;
@@ -264,18 +266,38 @@ function geneticAlgorithm(sentence) {
   obj.sentence = sentence;
   obj.length = sentence.length;
   obj.generate_initial_population();
-  while (obj.generation_count < obj.max_generation) {
-    obj.calculate_fitness();
-    obj.sort_population();
-    if (obj.fitness[obj.rank[0]] == 1) {
-      console.log("\nGeneration: " + obj.generation_count);
-      console.log("\nBest: " + obj.population[obj.rank[0]].genes);
-      console.log("\Fitness: " + obj.fitness[obj.rank[0]]);
-      return;
-    }
-    obj.generation_count += 1;
-    obj.generate_new_population();
+  func(obj);
+}
+
+function func (obj) {
+      obj.calculate_fitness();
+      obj.sort_population();
+      update(obj);
+      if (obj.fitness[obj.rank[0]] == 1 || obj.generation_count >= obj.max_generation) {
+        return;
+      }
+      obj.generation_count += 1;
+      obj.generate_new_population();
+  setTimeout(function () {
+    func(obj);
+  }, 100)
+}
+
+
+function update(obj) {
+  generation.innerHTML = "" + obj.generation_count;
+  ul.innerHTML = "";
+  for(let i = 0; i < 10; i++) {
+    ul.innerHTML += "<li>" + obj.population[obj.rank[i]].genes + "</li>";
   }
+}
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
 }
 
 // Start button
